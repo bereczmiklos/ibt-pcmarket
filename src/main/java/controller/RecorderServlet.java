@@ -37,8 +37,16 @@ public class RecorderServlet extends HttpServlet {
         
         Advertiser loginedAdv = (Advertiser)request.getSession().getAttribute("advertiser");
         String name = request.getParameter("name");
-        int price = Integer.parseInt(request.getParameter("price"));
         String keyWord = request.getParameter("keyword");
+        String priceParam = request.getParameter("price");
+        int price = 0;
+        
+        if (!priceParam.equals("")) {
+            price = Integer.parseInt(priceParam);
+        }
+        else{
+            throw new RuntimeException("invalid price");
+        }
         
         Product newProd = new Product(name, price, keyWord, loginedAdv.getEmailAddress());
         
