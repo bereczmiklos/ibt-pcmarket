@@ -39,7 +39,7 @@ public class RecorderServlet extends HttpServlet {
         String name = request.getParameter("name");
         String keyWord = request.getParameter("keyword");
         String priceParam = request.getParameter("price");
-        int price = 0;
+        int price;
         
         if (!priceParam.equals("")) {
             price = Integer.parseInt(priceParam);
