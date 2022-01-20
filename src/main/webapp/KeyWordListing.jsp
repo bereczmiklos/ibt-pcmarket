@@ -24,10 +24,10 @@
         %>
         <table border="1">
             <tr>
-                <td>Tulajdonos</td>
-                <td>Név</td>
-                <td>Ár</td>
-                <td>Lefoglalás</td>
+                <th>Tulajdonos</th>
+                <th>Név</th>
+                <th>Ár</th>
+                <th>Lefoglalás</th>
             </tr>
             <%for (Product prod : products)                               
             {%>

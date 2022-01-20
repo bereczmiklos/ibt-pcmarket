@@ -26,13 +26,13 @@
         <a href="index.html">kijelentkezés</a>
         <br>
         
-        <p><h2>Hirdetett termékeid:</h2>
+        <h2>Hirdetett termékeid:</h2>
         <%ProductDAO pDao = ProductDAO.getInstance();%>
           <table border="1">
             <tr>
-                <td>Név</td>
-                <td>Ár</td>
-                <td>Lefoglalta</td>
+                <th>Név</th>
+                <th>Ár</th>
+                <th>Lefoglalta</th>
             </tr>
             <%for (Product prod : loginedAdv.getProducts()) {%>
                  <tr>
@@ -43,17 +43,19 @@
                 <% }%>
         </table>
         
-        <p><h2>Új termék felvétele:</h2>
+        <h2>Új termék felvétele:</h2>
         <form action="RecorderServlet" method="post">
-            Név: <input type="text" name="name"><br>
-            Ár:  <input type="text" name="price"><br>
-            Kulcsszó: <select name="keyword" id="keyword-select">
-                <option value="${Product.PROCESSOR}">processzor</option>
-                <option value="${Product.MOTHERBOARD}">alaplap</option>
-                <option value="${Product.MEMORY}">memória</option>
-                <option value="${Product.POWERSUPPLY}">tápegység</option>
-                <option value="${Product.VGA}">videókártya</option>
-            </select><br>
+            <table>
+                <tr><td>Név:</td><td><input type="text" name="name"></td></tr><br>
+                <tr><td>Ár:</td><td><input type="text" name="price"></td></tr><br>
+                <tr><td>Kulcsszó:</td><td><select name="keyword" id="keyword-select">
+                    <option value="${Product.PROCESSOR}">processzor</option>
+                    <option value="${Product.MOTHERBOARD}">alaplap</option>
+                    <option value="${Product.MEMORY}">memória</option>
+                    <option value="${Product.POWERSUPPLY}">tápegység</option>
+                    <option value="${Product.VGA}">videókártya</option>
+                </select></td></tr><br>
+            </table>
             <input type="submit" name="recordSubmit" value="Felvesz">
         </form><br>
         
