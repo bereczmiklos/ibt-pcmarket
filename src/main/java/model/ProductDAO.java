@@ -31,9 +31,9 @@ public class ProductDAO implements Dao<Product>{
     @Override
     public Product readOne(String name) {
         return products.stream()
-                .filter(p->p.getName().equals(name))
-                .findFirst()
-                .orElse(null);
+            .filter(p->p.getName().equals(name))
+            .findFirst()
+            .orElse(null);
     }
 
     @Override
@@ -60,11 +60,11 @@ public class ProductDAO implements Dao<Product>{
     public Product readOneByAllParameter(String ownerEmail, String productName, int price)
     {
         return products.stream()
-                .filter(x->x.getOwnerEmailAddress().equals(ownerEmail) 
-                        && x.getName().equals(productName) 
-                        && x.getPrice() == price)
-                .findFirst()
-                .orElse(null);
+            .filter(x->x.getOwnerEmailAddress().equals(ownerEmail) 
+                    && x.getName().equals(productName) 
+                    && x.getPrice() == price)
+            .findFirst()
+            .orElse(null);
 
     }
 }

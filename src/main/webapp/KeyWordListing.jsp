@@ -20,32 +20,40 @@
     </head>
     <body>
         <h1>Kulcsszavaknak megfelelnek:</h1>
-        <%List<Product> products = (ArrayList<Product>)request.getSession().getAttribute("selectedproducts");
-        %>
-        <table border="1">
-            <tr>
-                <th>Tulajdonos</th>
-                <th>Név</th>
-                <th>Ár</th>
-                <th>Lefoglalás</th>
-            </tr>
-            <%for (Product prod : products)                               
-            {%>
+        <%List<Product> products = (ArrayList<Product>)request.getSession().getAttribute("selectedproducts");%>
+        <%if (!products.isEmpty()) {%>
+            <table border="1">
                 <tr>
-                <td><%=prod.getOwnerEmailAddress()%></td>
-                <td><%=prod.getName()%></td>
-                <td><%=prod.getPrice()%></td>
-                <td>
-                    <%if (prod.getBookingEmailAddress()==null) {%>
-                    <a href="BookingServlet?ownerToBook=<%=prod.getOwnerEmailAddress()%>&nameToBook=<%=prod.getName()%>&priceToBook=<%=prod.getPrice()%>">lefoglalás</a>
-                    <%}
-                    else{%>
-                        foglalt
-                    <%}%> 
-                </td>
+                    <th>Tulajdonos</th>
+                    <th>Név</th>
+                    <th>Ár</th>
+                    <th>Lefoglalás</th>
                 </tr>
-                <%}%>
-        </table>
+                <%for (Product prod : products)                               
+                {%>
+                    <tr>
+                    <td><%=prod.getOwnerEmailAddress()%></td>
+                    <td><%=prod.getName()%></td>
+                    <td><%=prod.getPrice()%></td>
+                    <td>
+                        <%if (prod.getBookingEmailAddress()==null) {%>
+                        <a href="BookingServlet?ownerToBook=<%=prod.getOwnerEmailAddress()%>
+                           &nameToBook=<%=prod.getName()%>
+                           &priceToBook=<%=prod.getPrice()%>">lefoglalás</a>
+                        <%}
+                        else{%>
+                            foglalt
+                        <%}%> 
+                    </td>
+                    </tr>
+                    <%}%>
+            </table>
+            <%}
+        else{
+            %>nincs a kulcsszónak megfelelő elem<br><%
+        }
+        %>
+        
         <a href="Advertisers.jsp">vissza</a>
     </body>
 </html>
