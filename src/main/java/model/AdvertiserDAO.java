@@ -75,12 +75,12 @@ public class AdvertiserDAO implements Dao<Advertiser> {
         create(advertiser);
 
         advertiser = new Advertiser("soosjozska@gmail.com");
-        //Product product2 = new Product("B450", 40000, MOTHERBOARD, advertiser.getEmailAddress());
+        Product product2 = new Product("B450", 40000, MOTHERBOARD, advertiser.getEmailAddress());
         Product product3 = new Product("CoolerMaster", 15000, POWERSUPPLY, advertiser.getEmailAddress());
-        //advertiser.getProducts().add(product2);
+        advertiser.getProducts().add(product2);
         advertiser.getProducts().add(product3);
         product3.setBookingEmailAddress("arnivagyok@gmail.com");
-        //pDao.create(product2);
+        pDao.create(product2);
         pDao.create(product3);
         advertisers.add(advertiser);
 

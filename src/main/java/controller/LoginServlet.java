@@ -36,18 +36,25 @@ public class LoginServlet extends HttpServlet {
         AdvertiserDAO aDao = AdvertiserDAO.getInstance();
         String loginEmail = request.getParameter("emailAddress");
         List<Advertiser> advertisers = aDao.readAll();
+        Advertiser advLogined = null;
         
-        for (Advertiser adv : advertisers) {
-            if (adv.getEmailAddress().equals(loginEmail)) {
-                
-                Advertiser advLogined = aDao.readOne(loginEmail);
+        if (loginEmail.equals("")) {
+            request.getRequestDispatcher("invalid.html").forward(request, response);
+        }
+        else {
+            for (Advertiser adv : advertisers) {
+                if (adv.getEmailAddress().equals(loginEmail)) {
+
+                    advLogined = aDao.readOne(loginEmail);
+                }
+            }
+            if (advLogined!=null) {
                 request.getSession().setAttribute("advertiser", advLogined);
                 request.getRequestDispatcher("Advertisers.jsp").forward(request, response);
             }
-        }
-        //TODO: default
-        if (request.getSession().getAttribute("advertiser") == null) {
-            request.getRequestDispatcher("invalid.html").forward(request, response);
+            else{
+                request.getRequestDispatcher("invalid.html").forward(request, response);
+            }
         }
     }
 
