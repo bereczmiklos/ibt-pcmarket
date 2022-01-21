@@ -37,9 +37,7 @@
                     <td><%=prod.getPrice()%></td>
                     <td>
                         <%if (prod.getBookingEmailAddress()==null) {%>
-                        <a href="BookingServlet?ownerToBook=<%=prod.getOwnerEmailAddress()%>
-                           &nameToBook=<%=prod.getName()%>
-                           &priceToBook=<%=prod.getPrice()%>">lefoglalás</a>
+                        <a href="BookingServlet?ownerToBook=<%=prod.getOwnerEmailAddress()%>&nameToBook=<%=prod.getName()%>&priceToBook=<%=prod.getPrice()%>">lefoglalás</a>
                         <%}
                         else{%>
                             foglalt
