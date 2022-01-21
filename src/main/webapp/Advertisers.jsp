@@ -27,7 +27,8 @@
         <br>
         
         <p><h2>Hirdetett termékeid:</h2>
-        <%ProductDAO pDao = ProductDAO.getInstance();%>
+        <%ProductDAO pDao = new ProductDAO();%>
+        <%AdvertiserDAO aDao = new AdvertiserDAO();%>
           <table border="1">
             <tr>
                 <td>Név</td>
@@ -36,9 +37,9 @@
             </tr>
             <%for (Product prod : loginedAdv.getProducts()) {%>
                  <tr>
-                      <td><%=prod.getName()%></td>
+                      <td><%=prod.getProductName()%></td>
                       <td><%=prod.getPrice()%></td>
-                      <td><%=prod.getBookingEmailAddress()%></td>
+                      <td><%=aDao.readOne(prod.getBookerId()).getEmailAddress()%></td>
                  </tr>
                 <% }%>
         </table>

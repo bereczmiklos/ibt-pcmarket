@@ -33,14 +33,16 @@ public class RecorderServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        ProductDAO pDao = ProductDAO.getInstance();
+        ProductDAO pDao = new ProductDAO();
         
         Advertiser loginedAdv = (Advertiser)request.getSession().getAttribute("advertiser");
+        
+        int advId = loginedAdv.getId();
         String name = request.getParameter("name");
         int price = Integer.parseInt(request.getParameter("price"));
         String keyWord = request.getParameter("keyword");
         
-        Product newProd = new Product(name, price, keyWord, loginedAdv.getEmailAddress());
+        Product newProd = new Product(advId,keyWord,name,price);
         
         if (!name.isEmpty()) {
             loginedAdv.getProducts().add(newProd);

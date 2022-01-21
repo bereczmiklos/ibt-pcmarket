@@ -23,7 +23,7 @@ public class ProductDAO implements Dao<Product>{
     private Statement stmt = null;
     private PreparedStatement preSta = null;
     
-    private ProductDAO() {
+    public ProductDAO() {
         try {
             con = db.connect();
             Statement stmt = db.statement(con);
@@ -109,4 +109,7 @@ public class ProductDAO implements Dao<Product>{
             throw new RuntimeException("Failed to delete");
         }
     }
+    
+    //TODO:
+    //NON-CRUDS
 }

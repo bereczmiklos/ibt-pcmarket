@@ -33,14 +33,14 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        AdvertiserDAO aDao = AdvertiserDAO.getInstance();
+        AdvertiserDAO aDao = new AdvertiserDAO();
         String loginEmail = request.getParameter("emailAddress");
         List<Advertiser> advertisers = aDao.readAll();
         
         for (Advertiser adv : advertisers) {
             if (adv.getEmailAddress().equals(loginEmail)) {
                 
-                Advertiser advLogined = aDao.readOne(loginEmail);
+                Advertiser advLogined = aDao.readOne(adv.getId());
                 request.getSession().setAttribute("advertiser", advLogined);
                 request.getRequestDispatcher("Advertisers.jsp").forward(request, response);
             }

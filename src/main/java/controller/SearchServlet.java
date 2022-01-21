@@ -34,7 +34,7 @@ public class SearchServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        ProductDAO pDao = ProductDAO.getInstance();
+        ProductDAO pDao = new ProductDAO();
         
         String keyWord = request.getParameter("searchedkeyword"); 
         List<Product> selectedProducts = new ArrayList<>();

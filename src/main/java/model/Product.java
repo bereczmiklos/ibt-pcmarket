@@ -28,6 +28,13 @@ public class Product {
     public Product() {
     }
 
+    public Product(int advId, String keyWord, String productName, int price) {
+        this.advId = advId;
+        this.keyWord = keyWord;
+        this.productName = productName;
+        this.price = price;
+    }
+
     public static void setKeyWords(String[] keyWords) {
         Product.keyWords = keyWords;
     }

@@ -33,15 +33,15 @@ public class BookingServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        ProductDAO pDao = ProductDAO.getInstance();
+        ProductDAO pDao = new ProductDAO();
         Advertiser advToBook = (Advertiser)request.getSession().getAttribute("advertiser");
-        String email = request.getParameter("ownerToBook");
-        String name = request.getParameter("nameToBook");
-        int price = Integer.parseInt(request.getParameter("priceToBook"));
+        int ownerId = Integer.parseInt(request.getParameter("ownerIdToBook"));
+        int prodId = Integer.parseInt(request.getParameter("prodIdToBook"));
         
-        Product productToBook = pDao.readOneByAllParameter(email, name, price);
+        Product productToBook = pDao.readOne(prodId);
         
-        productToBook.setBookingEmailAddress(advToBook.getEmailAddress());
+        productToBook.setBookerId(advToBook.getId());
+        
         request.getRequestDispatcher("KeyWordListing.jsp").forward(request, response);
     }
 

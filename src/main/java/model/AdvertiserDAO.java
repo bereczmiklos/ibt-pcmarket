@@ -11,10 +11,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import static model.Product.*;
 /**
  *
  * @author IBT
@@ -26,7 +22,7 @@ public class AdvertiserDAO implements Dao<Advertiser> {
     private Statement stmt = null;
     private PreparedStatement preSta = null;
         
-    private AdvertiserDAO() {
+    public AdvertiserDAO() {
         try {
             con = db.connect();
             Statement stmt = db.statement(con);
@@ -116,5 +112,8 @@ public class AdvertiserDAO implements Dao<Advertiser> {
             throw new RuntimeException("Failed to delete");
         }
     }
+    
+    //TODO:
+    //NON-CRUDS
 }
 
