@@ -18,39 +18,74 @@ public class Product {
     
     static String[] keyWords = new String[] {VGA, PROCESSOR, MOTHERBOARD, MEMORY, POWERSUPPLY};
     
-    String name;
-    int price;
+    int id;
+    int advId;
+    int bookerId;
     String keyWord;
-    String bookingEmailAddress;
-    String ownerEmailAddress;
+    String productName;
+    int price;
 
-    public Product(String name, int price, String keyWord, String ownerEmailAddress) {
-        this.name = name;
-        this.price = price;
-        this.ownerEmailAddress = ownerEmailAddress;
-        setKeyWord(keyWord);
-    }
-    
-    public Product(String name, int price, String keyWord) {
-        this.name = name;
-        this.price = price;
-        setKeyWord(keyWord);
+    public Product() {
     }
 
-    public void setOwnerEmailAddress(String ownerEmailAddress) {
-        this.ownerEmailAddress = ownerEmailAddress;
+    public static void setKeyWords(String[] keyWords) {
+        Product.keyWords = keyWords;
     }
 
-    public String getOwnerEmailAddress() {
-        return ownerEmailAddress;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setAdvId(int advId) {
+        this.advId = advId;
+    }
+
+    public void setBookerId(int bookerId) {
+        this.bookerId = bookerId;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public static String getVGA() {
+        return VGA;
+    }
+
+    public static String getPROCESSOR() {
+        return PROCESSOR;
+    }
+
+    public static String getMOTHERBOARD() {
+        return MOTHERBOARD;
+    }
+
+    public static String getMEMORY() {
+        return MEMORY;
+    }
+
+    public static String getPOWERSUPPLY() {
+        return POWERSUPPLY;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getAdvId() {
+        return advId;
+    }
+
+    public int getBookerId() {
+        return bookerId;
+    }
+
+    public String getProductName() {
+        return productName;
     }
 
     public static String[] getKeyWords() {
         return keyWords;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public int getPrice() {
@@ -59,14 +94,6 @@ public class Product {
 
     public String getKeyWord() {
         return keyWord;
-    }
-
-    public String getBookingEmailAddress() {
-        return bookingEmailAddress;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public void setPrice(int price) {
@@ -82,9 +109,5 @@ public class Product {
         if (this.keyWord == null) {
             throw new RuntimeException("Invalid keyword: " + keyWord);
         }
-    }
-
-    public void setBookingEmailAddress(String emailAddress) {
-        this.bookingEmailAddress = emailAddress;
     }
 }
