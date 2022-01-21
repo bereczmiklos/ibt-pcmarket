@@ -4,8 +4,15 @@
  */
 package model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static model.Product.*;
 /**
@@ -14,95 +21,100 @@ import static model.Product.*;
  */
 public class AdvertiserDAO implements Dao<Advertiser> {
     
-    private final List<Advertiser> advertisers = new ArrayList<>();
-    private static AdvertiserDAO aDao;
+    private PcMarketDb db= new PcMarketDb();
+    private Connection con = null;
+    private Statement stmt = null;
+    private PreparedStatement preSta = null;
         
     private AdvertiserDAO() {
-        testDataSeed();
-    }
-    
-    public static AdvertiserDAO getInstance()
-    {
-        if (aDao == null) {
-            aDao = new AdvertiserDAO();
+        try {
+            con = db.connect();
+            Statement stmt = db.statement(con);
         }
-        return aDao;
+        catch(SQLException e){
+            throw new RuntimeException("Failed to connect:" + e.getMessage());
+        }
     }
     
     @Override
-    public Advertiser readOne(String email) {
-        
-        return advertisers.stream()
-                .filter(a->a.getEmailAddress().equals(email))
-                .findFirst()
-                .orElse(null);
+    public Advertiser readOne(int id) {
+        ResultSet queryResult = null;
+        try {
+            String readAdv = "select * from advertiser where id = ?";
+            preSta = con.prepareStatement(readAdv);
+            preSta.setInt(1, id);
+            
+        } catch (SQLException ex) {
+            throw new RuntimeException("Failed to read");
+        }
+        return (Advertiser)queryResult;
     }
 
     @Override
     public List<Advertiser> readAll() {
-        return advertisers;
+        
+        ResultSet queryResult = null;
+        List<Advertiser> result = new ArrayList<>();
+        
+        try{
+            queryResult = stmt.executeQuery("select * from public.advertiser");
+            
+            while(queryResult.next()){
+                Advertiser adv = new Advertiser();
+                adv.setId(queryResult.getInt(1));
+                adv.setName(queryResult.getString(2));
+                adv.setEmailAddress(queryResult.getString(3));
+                result.add(adv);
+            }
+            
+        } catch(SQLException e)
+        {
+            throw new RuntimeException("Failed to read");
+        }
+        
+        return result;
     }
 
     @Override
     public void create(Advertiser adv) {
-        advertisers.add(adv);
+        try{
+            String insertAdv = "insert into advertiser values (?,?,?)";
+            preSta = con.prepareStatement(insertAdv);
+            preSta.setInt(1, adv.getId());
+            preSta.setString(2, adv.getName());
+            preSta.setString(3, adv.getEmailAddress());
+            
+        } catch(SQLException e)
+        {
+            throw new RuntimeException("Failed to create");
+        }
+    }
+
+    //TODO:
+    //select one by id
+    //update selected one
+    @Override
+    public void update(int id) {
+        try{
+           stmt.executeQuery("select * from public.advertiser");
+            
+        } catch(SQLException e)
+        {
+            throw new RuntimeException("Failed to update");
+        }
     }
 
     @Override
-    public void update(String oldName, Advertiser newAdvertiser) {
-        
-        Advertiser oldAdvertiser; // = readOne(oldName);
-        oldAdvertiser = (Advertiser)newAdvertiser;
-    }
-
-    @Override
-    public void delete(Advertiser adv) {
-        advertisers.remove(adv);
-    }
-    
-    void testDataSeed() {
-        ProductDAO pDao =  ProductDAO.getInstance();
-        
-        Advertiser advertiser = new Advertiser("misike@gmail.com");
-        Product product = new Product("i3", 20000, PROCESSOR, advertiser.getEmailAddress());
-        Product product1 = new Product("gtx550", 20000, VGA, advertiser.getEmailAddress());
-        advertiser.getProducts().add(product);
-        product.setBookingEmailAddress("soosjozska@gmail.com");
-        advertiser.getProducts().add(product1);
-        pDao.create(product);
-        pDao.create(product1);
-        //advertisers.add(advertiser);
-        create(advertiser);
-
-        advertiser = new Advertiser("soosjozska@gmail.com");
-        //Product product2 = new Product("B450", 40000, MOTHERBOARD, advertiser.getEmailAddress());
-        Product product3 = new Product("CoolerMaster", 15000, POWERSUPPLY, advertiser.getEmailAddress());
-        //advertiser.getProducts().add(product2);
-        advertiser.getProducts().add(product3);
-        product3.setBookingEmailAddress("arnivagyok@gmail.com");
-        //pDao.create(product2);
-        pDao.create(product3);
-        advertisers.add(advertiser);
-
-        advertiser = new Advertiser("arnivagyok@gmail.com");
-        Product product4 = new Product("DDR4", 16000, MEMORY, advertiser.getEmailAddress());
-        Product product5 = new Product("DDR5", 30000, MEMORY, advertiser.getEmailAddress());
-        product4.setBookingEmailAddress("gizella@gmail.com");
-        advertiser.getProducts().add(product4);
-        advertiser.getProducts().add(product5);
-        pDao.create(product4);
-        pDao.create(product5);
-        advertisers.add(advertiser);
-
-        advertiser = new Advertiser("gizella@gmail.com");
-        Product product6 = new Product("3030ti", 450000, VGA, advertiser.getEmailAddress());
-        Product product7 = new Product("1050", 160000, VGA, advertiser.getEmailAddress());
-        product6.setBookingEmailAddress("arnivagyok@gmail.com");
-        advertiser.getProducts().add(product6);
-        advertiser.getProducts().add(product7);
-        pDao.create(product6);
-        pDao.create(product7);
-        advertisers.add(advertiser);
+    public void delete(int id) {
+        try{
+           String deleteAdv = "delete from public.advertiser where id = ?";
+           preSta = con.prepareCall(deleteAdv);
+           preSta.setInt(1, id);
+            
+        } catch(SQLException e)
+        {
+            throw new RuntimeException("Failed to delete");
+        }
     }
 }
 

@@ -13,14 +13,27 @@ import java.util.List;
  */
 public class Advertiser {
     
+    private int id;
+    private String name;
     private String emailAddress;
     private List<Product> products;
+
+    public Advertiser() {
+    }
 
     public Advertiser(String emailAddress) {
         this.emailAddress = emailAddress;
         products = new ArrayList<>();
     }
 
+    public int getId() {
+        return id;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
     public String getEmailAddress() {
         return emailAddress;
     }
@@ -29,6 +42,18 @@ public class Advertiser {
         return products;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+    
     public void setProducts(List<Product> Products) {
         this.products = Products;
     }

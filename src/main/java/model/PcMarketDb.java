@@ -15,58 +15,32 @@ import java.sql.Statement;
  * @author IBT
  */
 public class PcMarketDb {
-    
-//    public static void main(String[] args) throws SQLException{
-//
-//        String jdbcUrl = "jdbc:postgresql://localhost:5432/postgres";
-//        String username = "postgres";
-//        String password = "1234";
-//
-//        try(Connection con = DriverManager.getConnection(jdbcUrl, username, password)){
-//            System.out.println("Successful connection");
-//            Statement stmt = con.createStatement();
-//            System.out.println("reading records...");
-//
-//            ResultSet q1 = stmt.executeQuery("select * from public.product");
-//            process(q1);
-//
-//            ResultSet q2 = stmt.executeQuery("select * from public.product where advid = 3");
-//            process(q2);
-//
-//        } catch(SQLException e){
-//            System.out.println("Connection failed: " + e.getMessage());
-//        }
-//    }
-    
-    public static void connectToDb() throws SQLException {
-        String jdbcUrl = "jdbc:postgresql://localhost:5432/postgres";
-        String username = "postgres";
-        String password = "1234";
+    private String jdbcUrl = "jdbc:postgresql://localhost:5432/postgres";
+    private String username = "postgres";
+    private String password = "1234";
+
+    private Connection con = null;
+    private Statement stmt = null;
         
-        try(Connection con = DriverManager.getConnection(jdbcUrl, username, password)){
+    public Connection connect() throws SQLException {
+
+        try{
+            con = DriverManager.getConnection(jdbcUrl, username, password);
             System.out.println("Successful connection");
             Statement stmt = con.createStatement();
             System.out.println("reading records...");
-            
+
             ResultSet q1 = stmt.executeQuery("select * from public.product");
-            process(q1);
-            
-            ResultSet q2 = stmt.executeQuery("select * from public.product where advid = 3");
-            process(q2);
-            
+
         } catch(SQLException e){
             System.out.println("Connection failed: " + e.getMessage());
         }
+
+        return con;
     }
-    
-    private static void process(ResultSet result) throws SQLException{
-        while(result.next()){
-            System.out.printf("%-30s  %-30s  %-30s%n",
-                    result.getInt("id"),
-                    result.getString("productname"), 
-                    result.getString("price"));
-        }
-        
-        System.out.println("_____________________________________________________________");
-    };
+     
+    public Statement statement(Connection con) throws SQLException{
+        stmt = con.createStatement();
+        return stmt; 
+    }
 }

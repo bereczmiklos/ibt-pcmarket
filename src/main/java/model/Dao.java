@@ -12,13 +12,13 @@ import java.util.List;
  */
 public interface Dao<T> {
     
-    T readOne(String id);
+    T readOne(int id);
     
     List<T> readAll();
     
     void create(T t);
     
-    void update(String oldId, T newOject);
+    void update(int id);
     
-    void delete(T t);
+    void delete(int id);
 }
