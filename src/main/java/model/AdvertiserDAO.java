@@ -22,7 +22,7 @@ public class AdvertiserDAO implements Dao<Advertiser> {
     private Statement stmt;
     private PreparedStatement preSta;
     
-    public AdvertiserDAO() {
+    public AdvertiserDAO(){
         try {
             db  = new PcMarketDb();
             con = db.connect();
@@ -36,15 +36,25 @@ public class AdvertiserDAO implements Dao<Advertiser> {
     @Override
     public Advertiser readOne(int id) {
         ResultSet queryResult = null;
+        Advertiser adv;
         try {
             String readAdv = "select * from advertiser where id = ?";
             preSta = con.prepareStatement(readAdv);
             preSta.setInt(1, id);
+            queryResult = preSta.executeQuery();
             
+            queryResult.next();
+            adv = new Advertiser();
+            adv.setId(queryResult.getInt(1));
+            adv.setName(queryResult.getString(2));
+            adv.setEmailAddress(queryResult.getString(3));
+ 
         } catch (SQLException ex) {
+            System.err.println("readone: failed to read" + ex.getMessage());
             throw new RuntimeException("Failed to read");
         }
-        return (Advertiser)queryResult;
+        System.err.println("readone: success, rerturn: " + adv);
+        return adv;
     }
 
     @Override
@@ -74,7 +84,7 @@ public class AdvertiserDAO implements Dao<Advertiser> {
 
     @Override
     public void create(Advertiser adv) {
-        try{
+          try{
             String insertAdv = "insert into advertiser values (?,?,?)";
             preSta = con.prepareStatement(insertAdv);
             preSta.setInt(1, adv.getId());
@@ -90,8 +100,15 @@ public class AdvertiserDAO implements Dao<Advertiser> {
     //TODO:
     //select one by id
     //update selected one
+    /**
+     * Update advertiser for a given ID ...
+     * @param adv advertiser with an existing ID
+     */
     @Override
-    public void update(int id) {
+    public void update(Advertiser adv) {
+        
+        //TODO:
+        // adv id != null
         try{
            stmt.executeQuery("select * from public.advertiser");
             
@@ -113,8 +130,5 @@ public class AdvertiserDAO implements Dao<Advertiser> {
             throw new RuntimeException("Failed to delete");
         }
     }
-    
-    //TODO:
-    //NON-CRUDS
 }
 

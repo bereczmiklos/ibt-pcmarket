@@ -31,7 +31,7 @@ public class RecorderServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException{
         
         ProductDAO pDao = new ProductDAO();
         
@@ -41,11 +41,13 @@ public class RecorderServlet extends HttpServlet {
         String name = request.getParameter("name");
         int price = Integer.parseInt(request.getParameter("price"));
         String keyWord = request.getParameter("keyword");
+        int prodId = pDao.readAll().size() + 1;
         
-        Product newProd = new Product(advId,keyWord,name,price);
+        //prodId, advID, bookerID, keyw, name, price
+        Product newProd = new Product(prodId, advId, 0, keyWord, name, price);
         
         if (!name.isEmpty()) {
-            loginedAdv.getProducts().add(newProd);
+            //loginedAdv.getProducts().add(newProd);
             pDao.create(newProd);
         }
         
@@ -79,7 +81,7 @@ public class RecorderServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+         processRequest(request, response);
     }
 
     /**

@@ -10,7 +10,7 @@ package model;
  */
 public class Product {
 
-    public static final String VGA = "grapichscard";
+    public static final String VGA = "graphicscard";
     public static final String PROCESSOR = "processor";
     public static final String MOTHERBOARD = "motherboard";
     public static final String MEMORY = "memory";
@@ -28,8 +28,10 @@ public class Product {
     public Product() {
     }
 
-    public Product(int advId, String keyWord, String productName, int price) {
+    public Product(int id, int advId, int bookerId, String keyWord, String productName, int price) {
+        this.id = id;
         this.advId = advId;
+        this.bookerId = bookerId;
         this.keyWord = keyWord;
         this.productName = productName;
         this.price = price;
@@ -53,26 +55,6 @@ public class Product {
 
     public void setProductName(String productName) {
         this.productName = productName;
-    }
-
-    public static String getVGA() {
-        return VGA;
-    }
-
-    public static String getPROCESSOR() {
-        return PROCESSOR;
-    }
-
-    public static String getMOTHERBOARD() {
-        return MOTHERBOARD;
-    }
-
-    public static String getMEMORY() {
-        return MEMORY;
-    }
-
-    public static String getPOWERSUPPLY() {
-        return POWERSUPPLY;
     }
 
     public int getId() {

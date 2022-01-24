@@ -31,16 +31,14 @@ public class BookingServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException{
         
         ProductDAO pDao = new ProductDAO();
         Advertiser advToBook = (Advertiser)request.getSession().getAttribute("advertiser");
-        int ownerId = Integer.parseInt(request.getParameter("ownerIdToBook"));
         int prodId = Integer.parseInt(request.getParameter("prodIdToBook"));
-        
         Product productToBook = pDao.readOne(prodId);
         
-        productToBook.setBookerId(advToBook.getId());
+        pDao.setBookerId(productToBook, advToBook);
         
         request.getRequestDispatcher("KeyWordListing.jsp").forward(request, response);
     }

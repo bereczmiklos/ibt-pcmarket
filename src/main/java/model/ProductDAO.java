@@ -23,7 +23,7 @@ public class ProductDAO implements Dao<Product>{
     private Statement stmt = null;
     private PreparedStatement preSta = null;
     
-    public ProductDAO() {
+    public ProductDAO(){
         try {
             db = new PcMarketDb();
             con = db.connect();
@@ -37,15 +37,28 @@ public class ProductDAO implements Dao<Product>{
     @Override
     public Product readOne(int id) {
         ResultSet queryResult = null;
+        Product prod;
         try {
             String readProd = "select * from public.product where id = ?";
             preSta = con.prepareStatement(readProd);
             preSta.setInt(1, id);
+            queryResult = preSta.executeQuery();
+            
+            queryResult.next();
+            prod = new Product();
+            prod.setId(queryResult.getInt(1));
+            prod.setAdvId(queryResult.getInt(2));
+            prod.setBookerId(queryResult.getInt(3));
+            prod.setKeyWord(queryResult.getString(4));
+            prod.setProductName(queryResult.getString(5));
+            prod.setPrice(queryResult.getInt(6));
             
         } catch (SQLException ex) {
+            System.err.println("readone: failed to read" + ex.getMessage());
             throw new RuntimeException("Failed to read");
         }
-        return (Product)queryResult;
+        System.err.println("readone: success, rerturn: " + prod);
+        return prod;
     }
 
     @Override
@@ -78,7 +91,7 @@ public class ProductDAO implements Dao<Product>{
     @Override
     public void create(Product prod) {
         try{
-            String insertAdv = "insert into public.product values (?,?,?,?,?,?)";
+            String insertAdv = "insert into product values (?,?,?,?,?,?)";
             preSta = con.prepareStatement(insertAdv);
             preSta.setInt(1, prod.getId());
             preSta.setInt(2, prod.getAdvId());
@@ -86,6 +99,7 @@ public class ProductDAO implements Dao<Product>{
             preSta.setString(4, prod.getKeyWord());
             preSta.setString(5, prod.getProductName());
             preSta.setInt(6, prod.getPrice());
+            preSta.executeUpdate();
             
         } catch(SQLException e)
         {
@@ -94,7 +108,15 @@ public class ProductDAO implements Dao<Product>{
     }
 
     @Override
-    public void update(int id) {
+    public void update(Product prod) {
+        try{
+            String updateProd = "update product set bookerid = (?) where id = (?)";
+            preSta = con.prepareStatement(updateProd);
+            preSta.setInt(1, prod.getBookerId());
+            preSta.setInt(2, prod.getId());
+        }catch(SQLException e){
+            throw new RuntimeException("Failed to update");
+        }
         
     }
 
@@ -102,7 +124,7 @@ public class ProductDAO implements Dao<Product>{
     public void delete(int id) {
         try{
            String deleteProd = "delete from public.product where id = ?";
-           preSta = con.prepareCall(deleteProd);
+           preSta = con.prepareStatement(deleteProd);
            preSta.setInt(1, id);
             
         } catch(SQLException e)
@@ -111,6 +133,17 @@ public class ProductDAO implements Dao<Product>{
         }
     }
     
-    //TODO:
-    //NON-CRUDS
+    public void setBookerId(Product prod, Advertiser adv) {
+        try{
+            String updateProd = "update product set bookerid = (?) where id = (?)";
+            preSta = con.prepareStatement(updateProd);
+            preSta.setInt(1, adv.getId());
+            preSta.setInt(2, prod.getId());
+            preSta.executeUpdate();
+            
+        }catch(SQLException e){
+            throw new RuntimeException("Failed to update");
+        }
+        
+    }
 }

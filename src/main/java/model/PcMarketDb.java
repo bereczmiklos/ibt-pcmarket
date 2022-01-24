@@ -6,7 +6,6 @@ package model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -25,17 +24,21 @@ public class PcMarketDb {
     private Connection con = null;
     private Statement stmt = null;
 
-    public Connection connect() throws SQLException {
+    public Connection connect() {
 
         try{
+            Class.forName("org.postgresql.Driver");
             con = DriverManager.getConnection(jdbcUrl, username, password);
             System.out.println("Successful connection");
             System.out.println("reading records...");
 
-        } catch(SQLException e){
-            System.out.println("Connection failed: " + e.getMessage());
+        } catch(SQLException se){
+            System.out.println("Connection failed: " + se.getMessage());
+            
+        } catch(ClassNotFoundException ce){
+            System.out.println("Connection failed: " + ce.getMessage());
         }
-
+        
         return con;
     }
      

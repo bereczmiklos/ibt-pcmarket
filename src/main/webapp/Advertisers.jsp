@@ -4,6 +4,7 @@
     Author     : IBT
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="model.ProductDAO"%>
 <%@page import="model.Product"%>
 <%@page import="java.util.List"%>
@@ -31,23 +32,37 @@
         <%AdvertiserDAO aDao = new AdvertiserDAO();%>
           <table border="1">
             <tr>
-                <td>Név</td>
-                <td>Ár</td>
-                <td>Lefoglalta</td>
+                <th>Név</th>
+                <th>Ár</th>
+                <th>Lefoglalta</th>
             </tr>
-            <%for (Product prod : loginedAdv.getProducts()) {%>
+            <%List<Product> products = new ArrayList<>();
+            for (Product product : pDao.readAll()) {
+                    if (product.getAdvId() == loginedAdv.getId()) {
+                            products.add(product);
+                        }
+                }
+            
+            for (Product prod : products) {%>
                  <tr>
                       <td><%=prod.getProductName()%></td>
                       <td><%=prod.getPrice()%></td>
-                      <td><%=aDao.readOne(prod.getBookerId()).getEmailAddress()%></td>
+                      <%if (prod.getBookerId() == 0) {
+                            %><td>-</td><%
+                          }else{
+                             %><td><%=aDao.readOne(prod.getBookerId()).getEmailAddress()%></td><%
+                            }
+                      %>
                  </tr>
                 <% }%>
         </table>
         
         <p><h2>Új termék felvétele:</h2>
         <form action="RecorderServlet" method="post">
-            Név: <input type="text" name="name"><br>
-            Ár:  <input type="text" name="price"><br>
+            <table>
+                <tr><td>Név:</td><td><input type="text" name="name"></td></tr>
+                <tr><td>Ár:</td><td><input type="text" name="price"></td></tr>
+            </table>
             Kulcsszó: <select name="keyword" id="keyword-select">
                 <option value="${Product.PROCESSOR}">processzor</option>
                 <option value="${Product.MOTHERBOARD}">alaplap</option>
