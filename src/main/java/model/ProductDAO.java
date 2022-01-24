@@ -18,15 +18,16 @@ import java.util.List;
  */
 public class ProductDAO implements Dao<Product>{
     
-    private PcMarketDb db= new PcMarketDb();
+    private PcMarketDb db;
     private Connection con = null;
     private Statement stmt = null;
     private PreparedStatement preSta = null;
     
     public ProductDAO() {
         try {
+            db = new PcMarketDb();
             con = db.connect();
-            Statement stmt = db.statement(con);
+            stmt = db.statement(con);
         }
         catch(SQLException e){
             throw new RuntimeException("Failed to connect:" + e.getMessage());

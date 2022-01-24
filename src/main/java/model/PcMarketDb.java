@@ -15,22 +15,22 @@ import java.sql.Statement;
  * @author IBT
  */
 public class PcMarketDb {
+    
+    private static PcMarketDb db;
+    
     private String jdbcUrl = "jdbc:postgresql://localhost:5432/postgres";
     private String username = "postgres";
     private String password = "1234";
 
     private Connection con = null;
     private Statement stmt = null;
-        
+
     public Connection connect() throws SQLException {
 
         try{
             con = DriverManager.getConnection(jdbcUrl, username, password);
             System.out.println("Successful connection");
-            Statement stmt = con.createStatement();
             System.out.println("reading records...");
-
-            ResultSet q1 = stmt.executeQuery("select * from public.product");
 
         } catch(SQLException e){
             System.out.println("Connection failed: " + e.getMessage());

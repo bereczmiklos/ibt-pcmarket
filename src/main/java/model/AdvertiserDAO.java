@@ -17,15 +17,16 @@ import java.util.List;
  */
 public class AdvertiserDAO implements Dao<Advertiser> {
     
-    private PcMarketDb db= new PcMarketDb();
-    private Connection con = null;
-    private Statement stmt = null;
-    private PreparedStatement preSta = null;
-        
+    private PcMarketDb db;
+    private Connection con;
+    private Statement stmt;
+    private PreparedStatement preSta;
+    
     public AdvertiserDAO() {
         try {
+            db  = new PcMarketDb();
             con = db.connect();
-            Statement stmt = db.statement(con);
+            stmt = db.statement(con);
         }
         catch(SQLException e){
             throw new RuntimeException("Failed to connect:" + e.getMessage());
