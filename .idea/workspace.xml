@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3cbd8b1a-1adf-48aa-8f62-8505f1c6c14c" name="Changes" comment="" />
+    <list default="true" id="3cbd8b1a-1adf-48aa-8f62-8505f1c6c14c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/LoginServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/RecorderServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/RecorderServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Advertiser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Advertiser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/AdvertiserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/AdvertiserDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/PcMarketDb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/PcMarketDb.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/ProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ProductDAO.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,6 +44,17 @@
     <property name="settings.editor.selected.configurable" value="com.poratu.idea.plugins.tomcat.setting.TomcatSettingConfigurable" />
   </component>
   <component name="RunManager" selected="Smart Tomcat.Unnamed">
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="PcMarket" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
       <MavenSettings>
         <option name="myGeneralSettings" />
@@ -62,7 +82,7 @@
       <option name="TomcatRunnerV001-Modules" value="{&quot;modules&quot;:[]}" />
       <option name="TomcatRunnerV001-TomcatInstallation" value="$PROJECT_DIR$" />
       <option name="TomcatRunnerV001-VmArgs" value="" />
-      <option name="TomcatRunnerV001-PassParentEnvVars" value="true" />
+      <option name="TomcatRunnerV001-PassParentEnvVars" value="false" />
       <option name="TomcatRunnerV001-CleanTmpWork" value="false" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -73,9 +93,7 @@
       <option name="adminPort" value="8005" />
       <option name="contextPath" value="/PcMarket" />
       <option name="docBase" value="$PROJECT_DIR$/src/main/webapp" />
-      <option name="envOptions">
-        <map />
-      </option>
+      <option name="envOptions" />
       <option name="passParentEnvironmentVariables" value="true" />
       <option name="port" value="8080" />
       <option name="tomcatInfo">
@@ -114,8 +132,8 @@
     </configuration>
     <list>
       <item itemvalue="Maven.PcMarket" />
-      <item itemvalue="Smart Tomcat.Unnamed" />
       <item itemvalue="Tomcat Runner.Unnamed" />
+      <item itemvalue="Smart Tomcat.Unnamed" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
