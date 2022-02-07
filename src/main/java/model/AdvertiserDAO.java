@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author IBT
@@ -90,6 +92,7 @@ public class AdvertiserDAO implements Dao<Advertiser> {
             preSta.setInt(1, adv.getId());
             preSta.setString(2, adv.getName());
             preSta.setString(3, adv.getEmailAddress());
+            preSta.executeUpdate();
             
         } catch(SQLException e)
         {
@@ -105,8 +108,22 @@ public class AdvertiserDAO implements Dao<Advertiser> {
     @Override
     public void update(Advertiser adv) {
         
-        //TODO: advid null check, update adv's properties with new adv's properties
-       
+        if (adv.getId() > 0) {
+            try {
+                String updateAdv = "update advertiser set name = (?) where id = (?)";
+                preSta = con.prepareCall(updateAdv);
+                preSta.setString(1, adv.getName());
+                preSta.setInt(2, adv.getId());
+                preSta.executeUpdate();
+                
+            } catch (SQLException e) {
+               System.err.println("Create: failed to create" + e.getMessage());
+               throw new RuntimeException("Failed to create");
+            }
+        }
+        else{
+            System.err.println("Update: failed (invalid id) - " + adv.toString());
+        }
     }
 
     @Override
