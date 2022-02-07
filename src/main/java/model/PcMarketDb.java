@@ -29,8 +29,8 @@ public class PcMarketDb {
         try{
             Class.forName("org.postgresql.Driver");
             con = DriverManager.getConnection(jdbcUrl, username, password);
-            System.out.println("Successful connection");
-            System.out.println("reading records...");
+            //System.out.println("Successful connection");
+            //System.out.println("reading records...");
 
         } catch(SQLException se){
             System.out.println("Connection failed: " + se.getMessage());

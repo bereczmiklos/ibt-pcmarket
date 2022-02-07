@@ -54,10 +54,10 @@ public class ProductDAO implements Dao<Product>{
             prod.setPrice(queryResult.getInt(6));
             
         } catch (SQLException ex) {
-            System.err.println("readone: failed to read" + ex.getMessage());
+            System.err.println("*ReadOne: failed to read" + ex.getMessage());
             throw new RuntimeException("Failed to read");
         }
-        System.err.println("readone: success, rerturn: " + prod);
+        System.err.println("Readone: success, - " + prod.toString());
         return prod;
     }
 
@@ -82,9 +82,10 @@ public class ProductDAO implements Dao<Product>{
             
         } catch(SQLException e)
         {
+            System.err.println("ReadAll: failed to read" + e.getMessage());
             throw new RuntimeException("Failed to read");
         }
-        
+        System.err.println("ReadAll: success");
         return result;
     }
 
@@ -103,8 +104,10 @@ public class ProductDAO implements Dao<Product>{
             
         } catch(SQLException e)
         {
+            System.err.println("Create: failed to create" + e.getMessage());
             throw new RuntimeException("Failed to create");
         }
+        System.err.println("Create: success - " + prod.toString());
     }
 
     @Override
@@ -115,9 +118,10 @@ public class ProductDAO implements Dao<Product>{
             preSta.setInt(1, prod.getBookerId());
             preSta.setInt(2, prod.getId());
         }catch(SQLException e){
+            System.err.println("Update: failed to update" + e.getMessage());
             throw new RuntimeException("Failed to update");
         }
-        
+        System.err.println("Update: success - " + prod.toString());
     }
 
     @Override
@@ -129,8 +133,10 @@ public class ProductDAO implements Dao<Product>{
             
         } catch(SQLException e)
         {
+            System.err.println("Delete: failed to delete" + e.getMessage());
             throw new RuntimeException("Failed to delete");
         }
+        System.err.println("Delete: success");
     }
     
     public void setBookerId(Product prod, Advertiser adv) {
@@ -142,8 +148,9 @@ public class ProductDAO implements Dao<Product>{
             preSta.executeUpdate();
             
         }catch(SQLException e){
+            System.err.println("*SetBookerId: failed to setBookerId on product:" + prod.toString());
             throw new RuntimeException("Failed to update");
         }
-        
+        System.err.println("SetBookerId: success - " + prod.toString());
     }
 }

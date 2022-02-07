@@ -50,10 +50,10 @@ public class AdvertiserDAO implements Dao<Advertiser> {
             adv.setEmailAddress(queryResult.getString(3));
  
         } catch (SQLException ex) {
-            System.err.println("readone: failed to read" + ex.getMessage());
+            System.err.println("*ReadOne: failed to read" + ex.getMessage());
             throw new RuntimeException("Failed to read");
         }
-        System.err.println("readone: success, rerturn: " + adv);
+        System.err.println("ReadOne: success - rerturn: " + adv);
         return adv;
     }
 
@@ -78,7 +78,7 @@ public class AdvertiserDAO implements Dao<Advertiser> {
         {
             throw new RuntimeException("Failed to read");
         }
-        
+        System.err.println("Readall: success");
         return result;
     }
 
@@ -95,11 +95,9 @@ public class AdvertiserDAO implements Dao<Advertiser> {
         {
             throw new RuntimeException("Failed to create");
         }
+        System.err.println("Create: success - " + adv.toString());
     }
 
-    //TODO:
-    //select one by id
-    //update selected one
     /**
      * Update advertiser for a given ID ...
      * @param adv advertiser with an existing ID
@@ -107,15 +105,8 @@ public class AdvertiserDAO implements Dao<Advertiser> {
     @Override
     public void update(Advertiser adv) {
         
-        //TODO:
-        // adv id != null
-        try{
-           stmt.executeQuery("select * from public.advertiser");
-            
-        } catch(SQLException e)
-        {
-            throw new RuntimeException("Failed to update");
-        }
+        //TODO: advid null check, update adv's properties with new adv's properties
+       
     }
 
     @Override
@@ -129,6 +120,7 @@ public class AdvertiserDAO implements Dao<Advertiser> {
         {
             throw new RuntimeException("Failed to delete");
         }
+        System.err.println("Delete: success - id: " + id);
     }
 }
 
