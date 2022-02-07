@@ -37,6 +37,8 @@ public class LoginServlet extends HttpServlet {
         String loginEmail = request.getParameter("emailAddress");
         List<Advertiser> advertisers = aDao.readAll();
         
+        request.getSession().removeAttribute("advertiser");
+        
         for (Advertiser adv : advertisers) {
             if (adv.getEmailAddress().equals(loginEmail)) {
                 
