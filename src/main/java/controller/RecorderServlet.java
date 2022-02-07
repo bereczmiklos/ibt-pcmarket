@@ -5,6 +5,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,13 +42,19 @@ public class RecorderServlet extends HttpServlet {
         String name = request.getParameter("name");
         int price = Integer.parseInt(request.getParameter("price"));
         String keyWord = request.getParameter("keyword");
-        int prodId = pDao.readAll().size() + 1;
+        //int prodId = pDao.readAll().size() + 1;
         
-        //prodId, advID, bookerID, keyw, name, price
-        Product newProd = new Product(prodId, advId, 0, keyWord, name, price);
+        List<Product> products = pDao.readAll();
+        int maxId = 0;
+        for (Product product : products) {
+            if (product.getId() > maxId) {
+                maxId = product.getId();
+            }
+        }
+        
+        Product newProd = new Product(maxId + 1, advId, 0, keyWord, name, price);
         
         if (!name.isEmpty()) {
-            //loginedAdv.getProducts().add(newProd);
             pDao.create(newProd);
         }
         
