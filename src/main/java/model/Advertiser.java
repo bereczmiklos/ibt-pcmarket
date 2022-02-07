@@ -57,5 +57,9 @@ public class Advertiser {
     public void setProducts(List<Product> Products) {
         this.products = Products;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Advertiser{" + "id=" + id + ", name=" + name + ", emailAddress=" + emailAddress + ", products=" + products + '}';
+    }
 }

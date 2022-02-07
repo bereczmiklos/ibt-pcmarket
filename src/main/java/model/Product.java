@@ -99,4 +99,9 @@ public class Product {
             throw new RuntimeException("Invalid keyword: " + keyWord);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Product{" + "id=" + id + ", advId=" + advId + ", bookerId=" + bookerId + ", keyWord=" + keyWord + ", productName=" + productName + ", price=" + price + '}';
+    }
 }
